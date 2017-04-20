@@ -2,7 +2,7 @@
 
 namespace odata2.Models
 {
-    [DataContract]
+    [DataContract(Name ="externalCourse")]
     public class ExternalCourse : Course
     {
         public ExternalCourse()
@@ -13,7 +13,7 @@ namespace odata2.Models
         {
         }
 
-        [DataMember(Name = "location")]
+        [DataMember]
         public ExternalLocation Location { get; set; }
     }
 }

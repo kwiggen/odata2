@@ -2,7 +2,7 @@
 
 namespace odata2.Models
 {
-    [DataContract]
+    [DataContract(Name ="course")]
     public class InPersonCourse : Course
     {
         public InPersonCourse()
@@ -13,7 +13,7 @@ namespace odata2.Models
         {
         }
 
-        [DataMember(Name = "location")]
+        [DataMember]
         public Location Location { get; set; }
     }
 }

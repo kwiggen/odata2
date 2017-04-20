@@ -2,7 +2,7 @@
 
 namespace odata2.Models
 {
-    [DataContract]
+    [DataContract(Name = "teacher")]
     public class Teacher
     {
 
@@ -14,10 +14,10 @@ namespace odata2.Models
             Name = name;
         }
 
-        [DataMember(Name = "id")]
+        [DataMember]
         public int Id { get; set; }
 
-        [DataMember(Name = "name")]
+        [DataMember]
         public string Name { get; set; }
     }
 }

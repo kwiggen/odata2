@@ -12,15 +12,15 @@ namespace odata2
     {
         public static void Register(HttpConfiguration config)
         {
-            ODataModelBuilder builder = new ODataConventionModelBuilder()
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder()
             {
                 ModelAliasingEnabled = true
             };
-
-            builder.EntitySet<Teacher>("Teachers"); 
-            builder.EntitySet<Course>("Courses");
+            builder.EnableLowerCamelCase();
+            builder.EntitySet<Teacher>("teachers"); 
+            builder.EntitySet<Course>("courses");
             builder.EntityType<Location>();
-            builder.EntitySet<ExternalLocation>("ExternalLocationsNonGraph");          
+            builder.EntitySet<ExternalLocation>("externalLocationsNonGraph");          
                        
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",

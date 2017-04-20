@@ -19,7 +19,8 @@ namespace odata2.Lib
         public override ODataProperty CreateStructuralProperty(IEdmStructuralProperty structuralProperty, EntityInstanceContext entityInstanceContext)
         {
             // Skip the 'id' property on ExternalLocations.
-            if (structuralProperty.Name == "id" && structuralProperty.DeclaringType.FullTypeName() == "odata2.Models.ExternalLocation")
+            if (StringUtilities.InvariantInsensitive(structuralProperty.Name, "id") == 0 &&
+                StringUtilities.InvariantInsensitive(structuralProperty.DeclaringType.FullTypeName(), typeof(ExternalLocation).FullName) == 0 )
             {
                 return null;
             }
@@ -35,7 +36,7 @@ namespace odata2.Lib
             ODataEntry entry = base.CreateEntry(selectExpandNode, entityInstanceContext);
             if (entry != null)
             {
-                if (entry.TypeName == "odata2.Models.ExternalLocation")
+                if (StringUtilities.InvariantInsensitive(entry.TypeName, typeof(ExternalLocation).FullName) == 0)
                 {
                     string id = string.Empty;
                     try
@@ -65,7 +66,7 @@ namespace odata2.Lib
                             }
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         // The EntityInstance property throws for some reason if it is null - SMH
                     }

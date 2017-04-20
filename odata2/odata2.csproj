@@ -126,6 +126,7 @@
     <Compile Include="Lib\CourseSerializer.cs" />
     <Compile Include="Lib\CustomODataDeserializerProvider.cs" />
     <Compile Include="Lib\CustomODataSerializerProvider.cs" />
+    <Compile Include="Lib\StringUtilities.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\ExternalCourse.cs" />
     <Compile Include="Models\ExternalLocation.cs" />

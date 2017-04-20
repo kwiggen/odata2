@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace odata2.Models
 {
-    [DataContract]
+    [DataContract(Name = "location")]
     public class Location
     {
         public static Location getFile(int key)
@@ -22,10 +22,10 @@ namespace odata2.Models
             Name = name;
         }
 
-        [DataMember(Name = "id")]
+        [DataMember]
         public int Id { get; set; }
 
-        [DataMember(Name = "name")]
+        [DataMember]
         public string Name { get; set; }
 
     }

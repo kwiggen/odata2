@@ -3,14 +3,14 @@
 
 namespace odata2.Models
 {
-    [DataContract]
+    [DataContract(Name = "externalLocation")]
     public class ExternalLocation
     {
         public ExternalLocation()
         {
         }
 
-        [DataMember(Name = "id")]
+        [DataMember]
         public string Id { get; set; }
     }
 }

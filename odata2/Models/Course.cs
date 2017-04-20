@@ -3,7 +3,7 @@ using System.Web.OData.Builder;
 
 namespace odata2.Models
 {
-    [DataContract]
+    [DataContract(Name = "course")]
     public class Course
     {
 
@@ -17,13 +17,13 @@ namespace odata2.Models
             DisplayName = p_name;
         }
 
-        [DataMember(Name = "id")]
+        [DataMember]
         public int Id { get; set; }
 
-        [DataMember(Name = "displayName")]
+        [DataMember]
         public string DisplayName { get; set; }
 
-        [DataMember(Name = "teacher")]
+        [DataMember]
         //[Contained]
         public Teacher Teacher { get; set; }
 
