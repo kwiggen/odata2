@@ -20,7 +20,7 @@ namespace odata2
             builder.EntitySet<Teacher>("Teachers"); 
             builder.EntitySet<Course>("Courses");
             builder.EntityType<Location>();
-            builder.EntityType<ExternalLocation>();          
+            builder.EntitySet<ExternalLocation>("ExternalLocationsNonGraph");          
                        
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",

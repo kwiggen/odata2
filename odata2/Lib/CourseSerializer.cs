@@ -16,23 +16,22 @@ namespace odata2.Lib
         {
         }
 
-
         public override ODataProperty CreateStructuralProperty(IEdmStructuralProperty structuralProperty, EntityInstanceContext entityInstanceContext)
         {
-            //if (entry.TypeName == "odata2.Models.ExternalLocation")
-            //{
-                if (structuralProperty.Name != "id")
+            // Skip the 'id' property on ExternalLocations.
+            if (structuralProperty.Name == "id" && structuralProperty.DeclaringType.FullTypeName() == "odata2.Models.ExternalLocation")
             {
-                return base.CreateStructuralProperty(structuralProperty, entityInstanceContext);
+                return null;
             }
             else
             {
-                return null;
+                return base.CreateStructuralProperty(structuralProperty, entityInstanceContext);
             }
         }
 
         public override ODataEntry CreateEntry(SelectExpandNode selectExpandNode, EntityInstanceContext entityInstanceContext)
         {
+            // Force the '@odata.id' property on ExternalLocations
             ODataEntry entry = base.CreateEntry(selectExpandNode, entityInstanceContext);
             if (entry != null)
             {
@@ -41,17 +40,20 @@ namespace odata2.Lib
                     string id = string.Empty;
                     try
                     {
-                        // SelectExpandBinder.SelectAll<foo>
+                        // All patterns I could test are an internal object with an 'Instance' property
                         object locationBinder = entityInstanceContext.EdmObject;
                         PropertyInfo instanceProperty = locationBinder.GetType().GetProperty("Instance", BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance);
-                        object rawLocation = instanceProperty.GetValue(locationBinder);
                         ExternalLocation extLocation = null;
-                        if (rawLocation != null)
+                        if (instanceProperty != null)
                         {
-                            extLocation = rawLocation as ExternalLocation;
-                            if (extLocation != null)
+                            object rawLocation = instanceProperty.GetValue(locationBinder);
+                            if (rawLocation != null)
                             {
-                                id = extLocation.Id;
+                                extLocation = rawLocation as ExternalLocation;
+                                if (extLocation != null)
+                                {
+                                    id = extLocation.Id;
+                                }
                             }
                         }
                         else
@@ -65,6 +67,7 @@ namespace odata2.Lib
                     }
                     catch (Exception e)
                     {
+                        // The EntityInstance property throws for some reason if it is null - SMH
                     }
                     if (!string.IsNullOrWhiteSpace(id))
                     {

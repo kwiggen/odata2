@@ -6,6 +6,7 @@ using System;
 using System.Net;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using System.Web.OData.Routing;
 
 namespace odata2.Controllers
 {
@@ -48,6 +49,23 @@ namespace odata2.Controllers
                 return NotFound();
             else
                 return Ok(course.Teacher);
+        }
+
+        [EnableQuery]
+        [ODataRoute("Courses({key})/odata2.Models.ExternalCourse/location")]
+        public IHttpActionResult GetLocation([FromODataUri] int key)
+        {
+            var course = getCourse(key);
+            if (course == null)
+                return NotFound();
+            else
+            {
+                ExternalCourse ext = course as ExternalCourse;
+                if (ext == null)
+                    return NotFound();
+                else
+                    return Ok(ext.Location);
+            }
         }
 
         [AcceptVerbs("POST", "PUT")]
