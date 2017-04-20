@@ -20,8 +20,12 @@ namespace odata2
             builder.EntitySet<Teacher>("teachers"); 
             builder.EntitySet<Course>("courses");
             builder.EntityType<Location>();
-            builder.EntitySet<ExternalLocation>("externalLocationsNonGraph");          
-                       
+            builder.EntitySet<ExternalLocation>("externalLocationsNonGraph");
+
+            config.EnableCaseInsensitive(true);
+            config.EnableEnumPrefixFree(true);
+            config.EnableUnqualifiedNameCall(true);
+            // config.SetUrlConventions(ODataUrlConventions.ODataSimplified); // Requires V5.8
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",
                 routePrefix: null,

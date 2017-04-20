@@ -53,6 +53,7 @@ namespace odata2.Controllers
 
         [EnableQuery]
         [ODataRoute("courses({key})/odata2.Models.externalCourse/location")]
+        [ODataRoute("courses({key})/odata2.Models.externalCourse/location/$ref")]
         public IHttpActionResult GetLocation([FromODataUri] int key)
         {
             var course = getCourse(key);

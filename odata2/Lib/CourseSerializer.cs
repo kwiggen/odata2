@@ -5,8 +5,8 @@ using System.Web.OData.Formatter.Serialization;
 using Microsoft.OData.Core;
 using Microsoft.OData.Edm;
 using odata2.Models;
-using System.Web.OData.Query;
 using System.Reflection;
+using System.Web.OData.Formatter;
 
 namespace odata2.Lib
 {
@@ -73,6 +73,10 @@ namespace odata2.Lib
                     if (!string.IsNullOrWhiteSpace(id))
                     {
                         entry.Id = new Uri(id);
+                        if (entityInstanceContext.SerializerContext.MetadataLevel == ODataMetadataLevel.FullMetadata)
+                        {
+                            entry.EditLink = null; 
+                        }
                     }
                 }
             }
