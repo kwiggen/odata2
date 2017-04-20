@@ -1,0 +1,158 @@
+{
+	"variables": [],
+	"info": {
+		"name": "odataTest",
+		"_postman_id": "b1a3faf2-e4c2-5e92-d5a3-c66a89094e56",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:22970/Courses",
+			"request": {
+				"url": "http://localhost:22970/Courses",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Teachers",
+			"request": {
+				"url": "http://localhost:22970/Teachers",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses(12345)/Teacher",
+			"request": {
+				"url": "http://localhost:22970/Courses(12345)/teacher",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses(12345)?$expand=teacher,location",
+			"request": {
+				"url": "http://localhost:22970/Courses(12345)?$expand=teacher,location",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses(12345)/teacher/$ref",
+			"request": {
+				"url": "http://localhost:22970/Courses(12345)/teacher/$ref",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"@odata.id\":\"http://localhost:22970/Teachers(100)\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses(12345)?$expand=teacher",
+			"request": {
+				"url": "http://localhost:22970/Courses(12345)?$expand=teacher",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses",
+			"request": {
+				"url": "http://localhost:22970/Courses",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"displayName\": \"CS101\",\n\t\"teacher\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Teachers(100)\"\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses",
+			"request": {
+				"url": "http://localhost:22970/Courses",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.InPersonCourse\",\n\t\"displayName\": \"CS401\",\n\t\"teacher\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Teachers(100)\"\n\t},\n\t\"location\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Locations(44)\"\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses",
+			"request": {
+				"url": "http://localhost:22970/Courses",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.ExternalCourse\",\n\t\"displayName\": \"Spanish\",\n\t\"teacher\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Teachers(100)\"\n\t},\n\t\"location\": {\n\t\t\"@odata.id\": \"http://externalHost:22970/Locations(333)\"\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
