@@ -38,13 +38,24 @@ namespace odata2.Lib
             {
                 if (StringUtilities.InvariantInsensitive(entry.TypeName, typeof(ExternalLocation).FullName) == 0)
                 {
+                    ExternalLocation extLocation = null;
                     string id = string.Empty;
                     try
                     {
+                        extLocation = entityInstanceContext.EntityInstance as ExternalLocation;
+                        if (extLocation != null)
+                        {
+                            id = extLocation.Id;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // The EntityInstance property throws in some circumstances
+                        // For example if the FisplayMember attribute has changed the property's name.
+                        // Fall back to the EdmObject property for resilience.
                         // All patterns I could test are an internal object with an 'Instance' property
                         object locationBinder = entityInstanceContext.EdmObject;
                         PropertyInfo instanceProperty = locationBinder.GetType().GetProperty("Instance", BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance);
-                        ExternalLocation extLocation = null;
                         if (instanceProperty != null)
                         {
                             object rawLocation = instanceProperty.GetValue(locationBinder);
@@ -57,18 +68,6 @@ namespace odata2.Lib
                                 }
                             }
                         }
-                        else
-                        {
-                            extLocation = entityInstanceContext.EntityInstance as ExternalLocation;
-                            if (extLocation != null)
-                            {
-                                id = extLocation.Id;
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        // The EntityInstance property throws for some reason if it is null - SMH
                     }
                     if (!string.IsNullOrWhiteSpace(id))
                     {
