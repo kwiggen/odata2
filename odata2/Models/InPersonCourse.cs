@@ -2,7 +2,7 @@
 
 namespace odata2.Models
 {
-    [DataContract(Name ="course")]
+    [DataContract(Name ="inPersonCourse")]
     public class InPersonCourse : Course
     {
         public InPersonCourse()
