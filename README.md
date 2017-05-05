@@ -15,4 +15,6 @@ points to an Entity that is not hosted by the server.
 In this example I have created a new Deserializer which is used to take @odata.id objects in a POST and create the correct object as the 
 default OData lib does not do this.
 
+The other issue with the current version of odata libs is that you can't have a Complex Type which contains another Entity Type.  To work around this, this example treats all objects as Entities, yet used the Serializer to hide the ID of the ENtity which should be treated as a Complex Type.  In fact the ID is hardcoded to -1 in this example.  This example is in the ResourceWrapper and Resource objects which are part of Course
+
 Thanks to Gareth who wrote a custom serializer to return @data.id for the ExternalCourse Location object. 
