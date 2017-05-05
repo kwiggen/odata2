@@ -10,7 +10,7 @@
 		{
 			"name": "http://localhost:22970/Courses",
 			"request": {
-				"url": "http://localhost:22970/Courses",
+				"url": "http://localhost:22970/courses",
 				"method": "GET",
 				"header": [
 					{
@@ -27,7 +27,7 @@
 		{
 			"name": "http://localhost:22970/Teachers",
 			"request": {
-				"url": "http://localhost:22970/Teachers",
+				"url": "http://localhost:22970/teachers",
 				"method": "GET",
 				"header": [
 					{
@@ -44,7 +44,7 @@
 		{
 			"name": "http://localhost:22970/Courses(12345)/Teacher",
 			"request": {
-				"url": "http://localhost:22970/Courses(12345)/teacher",
+				"url": "http://localhost:22970/courses(12345)/teacher",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -55,7 +55,7 @@
 		{
 			"name": "http://localhost:22970/Courses(12345)?$expand=teacher,location",
 			"request": {
-				"url": "http://localhost:22970/Courses(12345)?$expand=teacher,location",
+				"url": "http://localhost:22970/courses(12345)?$expand=teacher,location",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -66,7 +66,7 @@
 		{
 			"name": "http://localhost:22970/Courses(12345)/teacher/$ref",
 			"request": {
-				"url": "http://localhost:22970/Courses(12345)/teacher/$ref",
+				"url": "http://localhost:22970/courses(12345)/teacher/$ref",
 				"method": "PUT",
 				"header": [
 					{
@@ -86,7 +86,7 @@
 		{
 			"name": "http://localhost:22970/Courses(12345)?$expand=teacher",
 			"request": {
-				"url": "http://localhost:22970/Courses(12345)?$expand=teacher",
+				"url": "http://localhost:22970/courses(12345)?$expand=teacher",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -97,7 +97,7 @@
 		{
 			"name": "http://localhost:22970/Courses",
 			"request": {
-				"url": "http://localhost:22970/Courses",
+				"url": "http://localhost:22970/courses",
 				"method": "POST",
 				"header": [
 					{
@@ -117,7 +117,7 @@
 		{
 			"name": "http://localhost:22970/Courses",
 			"request": {
-				"url": "http://localhost:22970/Courses",
+				"url": "http://localhost:22970/courses",
 				"method": "POST",
 				"header": [
 					{
@@ -128,7 +128,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.InPersonCourse\",\n\t\"displayName\": \"CS401\",\n\t\"teacher\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Teachers(100)\"\n\t},\n\t\"location\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Locations(44)\"\n\t}\n}"
+					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.inPersonCourse\",\n\t\"displayName\": \"CS401\",\n\t\"teacher\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Teachers(100)\"\n\t},\n\t\"location\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Locations(44)\"\n\t}\n}"
 				},
 				"description": ""
 			},
@@ -137,7 +137,7 @@
 		{
 			"name": "http://localhost:22970/Courses",
 			"request": {
-				"url": "http://localhost:22970/Courses",
+				"url": "http://localhost:22970/courses",
 				"method": "POST",
 				"header": [
 					{
@@ -148,7 +148,69 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.ExternalCourse\",\n\t\"displayName\": \"Spanish\",\n\t\"teacher\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Teachers(100)\"\n\t},\n\t\"location\": {\n\t\t\"@odata.id\": \"http://externalHost:22970/Locations(333)\"\n\t}\n}"
+					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.externalCourse\",\n\t\"displayName\": \"Spanish\",\n\t\"teacher\": {\n\t\t\"@odata.id\": \"http://localhost:22970/Teachers(100)\"\n\t},\n\t\"location\": {\n\t\t\"@odata.id\": \"http://externalHost:22970/Locations(333)\"\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses/resource",
+			"request": {
+				"url": "http://localhost:22970/courses(12345)/resources",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.resourceWrapper\",\n\t\"distributeResource\": false,\n\t\"wrappedResource\" : {\n\t\t\"@odata.type\": \"#odata2.Models.linkResource\",\n\t\t\"displayName\": \"Display Me\",\n\t\t\"link\": \"https://www.yahoo.com\"\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses(12345)/resources",
+			"request": {
+				"url": "http://localhost:22970/Courses(12345)/resources",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/Courses(12345)/resources(555)/wrappedResource",
+			"request": {
+				"url": "http://localhost:22970/Courses(12345)/resources(555)/wrappedResource",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:22970/courses(12345)/resources",
+			"request": {
+				"url": "http://localhost:22970/courses(12345)/resources",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"@odata.type\": \"#odata2.Models.resourceWrapper\",\n\t\"distributeResource\": false,\n\t\"wrappedResource\" : {\n\t\t\"@odata.type\": \"#odata2.Models.fileResource\",\n\t\t\"displayName\": \"aNewFile.jpg\",\n\t\t\"graphFile\" : {\n\t\t\t\"@odata.id\": \"http://graph.microsoft.com/drives/4545/items/23452\"\n\t\t}\n\t}\n}"
 				},
 				"description": ""
 			},
