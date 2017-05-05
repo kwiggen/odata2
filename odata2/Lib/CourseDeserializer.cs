@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.OData;
-using System.Web.OData.Formatter.Deserialization;
-using Microsoft.OData.Core;
-using Microsoft.OData.Edm;
+﻿using Microsoft.OData.Edm;
 using odata2.Controllers;
 using odata2.Models;
+using System;
+using System.Web.OData.Formatter.Deserialization;
 
 namespace odata2.Lib
 {
@@ -24,21 +19,21 @@ namespace odata2.Lib
             //we know that Teacher and Location can bothe be sent in as a @odata.id instead of an object
             //we need to look to see if the ID is sent in for these EntityType and return the object
             var objectType = entryWrapper.Entry.TypeName;
-            if (objectType == "odata2.Models.Teacher")
+            if (StringUtilities.InvariantInsensitive(objectType, "odata2.Models.Teacher") == 0)
             {
                 var possibleTeacher = FindObject<Teacher>(entryWrapper.Entry.Id, TEACHER_URI_PREFIX,
                                                           TEACHER_URI_POSTFIX, TeachersController.getTeacher);
                 if (possibleTeacher != null)
                     return possibleTeacher;
             }
-            else if (objectType == "odata2.Models.Location")
+            else if (StringUtilities.InvariantInsensitive(objectType, "odata2.Models.Location") == 0) 
             {
                 var possibleFile = FindObject<Location>(entryWrapper.Entry.Id, FILE_URI_PREFIX,
                                                        FILE_URI_POSTFIX, Location.getFile);
                 if (possibleFile != null)
                     return possibleFile;
             }
-            else if (objectType == "odata2.Models.ExternalLocation")
+            else if (StringUtilities.InvariantInsensitive(objectType, "odata2.Models.ExternalLocation") == 0)
             {
                 var entryId = entryWrapper.Entry.Id;
                 if (entryId != null)
@@ -46,6 +41,16 @@ namespace odata2.Lib
                     ExternalLocation externalLocation = new ExternalLocation();
                     externalLocation.Id = entryId.AbsoluteUri;
                     return externalLocation;
+                }
+            }
+            else if (StringUtilities.InvariantInsensitive(objectType, "odata2.Models.File") == 0)
+            {
+                var entryId = entryWrapper.Entry.Id;
+                if (entryId != null)
+                {
+                    File file = new File();
+                    file.Id = entryId.AbsoluteUri;
+                    return file;
                 }
             }
 

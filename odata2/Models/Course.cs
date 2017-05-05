@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Web.OData.Builder;
 
 namespace odata2.Models
@@ -9,12 +10,14 @@ namespace odata2.Models
 
         public Course()
         {
+            Resources = new List<ResourceWrapper>();
         }
 
         public Course(int p_id, string p_name)
         {
             Id = p_id;
             DisplayName = p_name;
+            Resources = new List<ResourceWrapper>();
         }
 
         [DataMember]
@@ -24,8 +27,12 @@ namespace odata2.Models
         public string DisplayName { get; set; }
 
         [DataMember]
-        //[Contained]
         public Teacher Teacher { get; set; }
+
+        [DataMember]
+        [AutoExpand]
+        [Contained]
+        public ICollection<ResourceWrapper> Resources { get; set; }
 
     }
 }

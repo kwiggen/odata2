@@ -52,6 +52,17 @@ namespace odata2.Controllers
         }
 
         [EnableQuery]
+        //[ODataRoute("courses({key})/resources")]
+        public IHttpActionResult GetResources([FromODataUri] int key)
+        {
+            var course = getCourse(key);
+            if (course == null)
+                return NotFound();
+            else
+                return Ok(course.Resources);
+        }
+
+        [EnableQuery]
         [ODataRoute("courses({key})/odata2.Models.externalCourse/location")]
         [ODataRoute("courses({key})/odata2.Models.externalCourse/location/$ref")]
         public IHttpActionResult GetLocation([FromODataUri] int key)
@@ -69,7 +80,24 @@ namespace odata2.Controllers
             }
         }
 
-        [AcceptVerbs("POST", "PUT")]
+        [EnableQuery]
+        [ODataRoute("courses({key})/resources({key2})/wrappedResource")]
+        public IHttpActionResult GetWrappedResource([FromODataUri] int key, [FromODataUri] int key2)
+        {
+            var course = getCourse(key);
+            if (course == null)
+                return NotFound();
+            else
+            {
+                ResourceWrapper returnMe = course.Resources.Where(x => x.Id == key2).First();
+                if (returnMe == null)
+                    return NotFound();
+                else
+                    return Ok(returnMe.WrappedResource);
+            }
+        }
+
+        [AcceptVerbs("PUT")]
         public IHttpActionResult CreateRef([FromODataUri] int key, string navigationProperty, [FromBody] Uri link)
         {
             var course = getCourse(key);
@@ -86,6 +114,22 @@ namespace odata2.Controllers
             }
             return StatusCode(HttpStatusCode.NoContent);
       
+        }
+
+        [AcceptVerbs("POST")]
+        [ODataRoute("courses({key})/resources")]
+        public IHttpActionResult PostResourceWrapper([FromODataUri] int key, [FromBody] ResourceWrapper wrap)
+        {
+            var course = getCourse(key);
+            if (course == null)
+                return NotFound();
+
+            wrap.Id = GetRandomNumber(0, int.MaxValue - 1);
+
+            course.Resources.Add(wrap);
+
+            return StatusCode(HttpStatusCode.NoContent);
+
         }
 
 
@@ -136,6 +180,12 @@ namespace odata2.Controllers
             var l_2 = new InPersonCourse(12345, "Science");
             l_2.Location = new Location(56, "Lawence Lab of Physics");
             l_2.Teacher = TeachersController.MR_SMITH;
+            var linkResource = new LinkResource("xythos", "http://www.xythos.com");
+            var wrapper = new ResourceWrapper(445, false, linkResource);
+            l_2.Resources.Add(wrapper);
+            var fileResource  = new FileResource("image.png", "http://graph.microsoft.com/drives/sdfsf/items/sdfdsf");
+            var wrapper2 = new ResourceWrapper(555, true, fileResource);
+            l_2.Resources.Add(wrapper2);
             return l_2;
         }
 
